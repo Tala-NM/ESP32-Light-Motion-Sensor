@@ -1,1 +1,30 @@
+#include <Arduino.h>
 
+const int lightSensorPin = 34; 
+const int motionSensorPin = 26;
+const int bulbPin = 14; 
+
+void setup() {
+  pinMode(lightSensorPin, INPUT);
+  pinMode(motionSensorPin, INPUT);
+  pinMode(bulbPin, OUTPUT);
+  Serial.begin(115200);
+}
+
+void loop() {
+  int lightValue = analogRead(lightSensorPin);
+  int motionValue = digitalRead(motionSensorPin);
+
+  Serial.print("Light: ");
+  Serial.print(lightValue);
+  Serial.print("\tMotion: ");
+  Serial.println(motionValue);
+
+  if (lightValue > 500 && motionValue == HIGH) {
+    digitalWrite(bulbPin, HIGH);  
+  } else {
+    digitalWrite(bulbPin, LOW);   
+  }
+
+  delay(1000);
+}
